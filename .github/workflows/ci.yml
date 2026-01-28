@@ -35,8 +35,7 @@ jobs:
           sudo df -Th
 
       - name: Download
-        run: |
-          sudo /bin/bash mas.sh
+        run: sudo /bin/bash mas.sh
 
       - name: Generate release tag env
         run: |
