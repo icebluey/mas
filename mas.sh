@@ -31,9 +31,15 @@ cd /tmp/_output
 
 git clone --remote-submodules --recurse-submodules https://github.com/massgravel/Microsoft-Activation-Scripts.git mas-"$(date -u +"%Y-%m-%d")"
 sleep 1
-/usr/bin/7z a -r -tzip mas-"$(date -u +"%Y-%m-%d")".zip mas-"$(date -u +"%Y-%m-%d")"
-sleep 1
-sha256sum -b mas-"$(date -u +"%Y-%m-%d")".zip > mas-"$(date -u +"%Y-%m-%d")".zip.sha256
+cd mas-"$(date -u +"%Y-%m-%d")"
+_tag="$(git describe --tags --always)"
+cd ..
+mv mas-"$(date -u +"%Y-%m-%d")" mas-v${_tag}-"$(date -u +"%Y-%m-%d")"
 
-rm -fr mas-"$(date -u +"%Y-%m-%d")"
+/usr/bin/7z a -r -tzip mas-v"${_tag}-$(date -u +"%Y-%m-%d")".zip mas-v"${_tag}-$(date -u +"%Y-%m-%d")"
+sleep 1
+sha256sum -b mas-v"${_tag}-$(date -u +"%Y-%m-%d")".zip > mas-v"${_tag}-$(date -u +"%Y-%m-%d")".zip.sha256
+
+echo "$(date -u +"%Y-%m-%d")" > .ver.txt
+rm -fr mas-v"${_tag}-$(date -u +"%Y-%m-%d")"
 exit
