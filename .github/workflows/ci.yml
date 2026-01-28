@@ -40,7 +40,7 @@ jobs:
 
       - name: Generate release tag env
         run: |
-          _release_ver="$(/bin/ls -1 /tmp/_output/mas*.zip | sed 's/.*mas-//g; s/\.zip.*//g')"
+          _release_ver="$(cat /tmp/_output/.ver.txt)"
           echo "_release_ver=${_release_ver}" >> $GITHUB_ENV
 
       - name: Upload files
